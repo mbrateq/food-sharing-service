@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1/ads")
+@RequestMapping("api/v1/notices")
 @RequiredArgsConstructor
-public class AdsController implements AdsOperations {
+public class NoticeController implements NoticeOperations {
 
     @GetMapping("/")
     public String home() {
