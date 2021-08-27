@@ -1,0 +1,35 @@
+# Normalize all non-binary files line endings to LF upon `git add`/`git commit.`
+* text=auto eol=lf
+
+## SOURCE CODE
+*.js               text
+*.java             text
+
+## REPOSITORY
+.gitattributes     text export-ignore
+.gitignore         text export-ignore
+.editorconfig      text export-ignore
+
+## CONFIG
+*.csv              text
+*.lock             text -diff
+*.json             text
+*.xml              text
+*.yaml             text
+
+## DOCUMENTATION
+*.md               text
+LICENSE            text
+
+## DOCKER
+.dockerignore      text
+Dockerfile         text
+
+## OS/EOL Specific
+*.bat              text eol=crlf
+*.sh               text
+
+## BINARY
+*.class         binary
+*.jar           binary
+*.war           binary
