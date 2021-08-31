@@ -1,7 +1,9 @@
 package pl.sggw.foodsharingservice.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -15,17 +17,18 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="NOTICES", indexes = @Index(name="ptd", columnList = "PUBLICATION_DATE"))
+@Table(name="NOTICES", indexes = @Index(name="PTD", columnList = "PUBLICATION_DATE"))
 @Entity
 public class Notice extends RepresentationModel<Notice> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NOTICE_ID")
-    private long noticeId;
+    private Long noticeId;
 
     @Column(name = "TITLE")
     private String title;
