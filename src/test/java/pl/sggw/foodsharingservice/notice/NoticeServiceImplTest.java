@@ -85,7 +85,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
     void checkIfProperlyDeletesNotice() {
         //        given
         executeScript("notice/create-single-notice.sql");
-        final long givenNoticeId = 10;
+        final long givenNoticeId = 10L;
         //        when
         boolean result = noticeService.deleteNotice(givenNoticeId);
         //        then
