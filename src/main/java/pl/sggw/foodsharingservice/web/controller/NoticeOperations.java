@@ -14,6 +14,12 @@ public interface NoticeOperations {
     @Operation(summary = "Wyświetlenie komunikatu testowego")
     ResponseEntity<String> home();
 
+    @Operation(summary = "Wyświetlenie komunikatu testowego - admin")
+    ResponseEntity<String> admin();
+
+    @Operation(summary = "Wyświetlenie komunikatu testowego - user")
+    ResponseEntity<String> user();
+
     @Operation(summary = "Wyświetlenie listy ogłoszeń")
     ResponseEntity<List<Notice>> listAllNotices();
 

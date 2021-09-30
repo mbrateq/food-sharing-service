@@ -9,11 +9,15 @@ import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -23,7 +27,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name="NOTICES", indexes = @Index(name="PTD", columnList = "PUBLICATION_DATE"))
 @Entity
-public class Notice extends RepresentationModel<Notice> {
+public class Notice extends RepresentationModel<Notice> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +45,11 @@ public class Notice extends RepresentationModel<Notice> {
 
     @Column(name = "EXPIRATION_DATE")
     private LocalDate expirationDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")
+    private User author;
+
 
 
 }
