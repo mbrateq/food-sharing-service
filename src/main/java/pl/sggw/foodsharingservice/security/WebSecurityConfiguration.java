@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,22 +20,32 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+  private final PasswordEncoderService passwordEncoderService;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsService);
-    }
+  private final UserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
-                .antMatchers("/api/**").authenticated()
-                .and().formLogin();
-    }
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userDetailsService);
+  }
+
+  @Override
+  protected void configure(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+        .authorizeRequests()
+        //                ALL REQUESTS
+        .anyRequest()
+        .authenticated()
+        .and()
+        .formLogin();
+    //                     API REQUESTS
+//                    .antMatchers("/api/**").authenticated().and().formLogin();
+  }
+
+  @Bean
+  public PasswordEncoder getPasswordEncoder() {
+//    return NoOpPasswordEncoder.getInstance();
+  return passwordEncoderService.getPasswordEncoder();
+  }
 
 }

@@ -7,6 +7,7 @@ import pl.sggw.foodsharingservice.model.dto.CreateNoticeDto;
 import pl.sggw.foodsharingservice.model.entity.Notice;
 import pl.sggw.foodsharingservice.model.mapper.NoticeMapstructMapper;
 import pl.sggw.foodsharingservice.model.repository.NoticeRepository;
+import pl.sggw.foodsharingservice.security.PasswordEncoderService;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;

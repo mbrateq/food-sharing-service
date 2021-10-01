@@ -18,7 +18,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,31 +34,19 @@ public class User implements Serializable {
   @Column(name = "USER_ID")
   private Long userId;
 
-  @Column(name = "NAME")
-  private String name;
-
-  @Column(name = "SURNAME")
-  private String surname;
-
   @Column(name = "USERNAME", unique = true)
   private String username;
-
-  @Column(name = "EMAIL", unique = true)
-  private String email;
 
   @Column(name = "PASSWORD")
   private String password;
 
-  @Column(name = "DATE_OF_BIRTH")
-  private LocalDateTime dateOfBirth;
-
-  @Column(name = "ENABLED")
+  @Column(name = "ENABLED", columnDefinition = "boolean default false")
   private boolean enabled;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
   @JoinTable(
       name = "USERS_ROLES",
-      joinColumns = @JoinColumn(name = "USERNAME"),
+      joinColumns = @JoinColumn(name = "USER_ID"),
       inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
   private List<Role> roles = new LinkedList<>();
 }

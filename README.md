@@ -6,6 +6,7 @@ Simple foodSharing Springboot app
 2. Utworzenie encji użytkownika i ogłoszenia wraz z dto i mapperem
 3. Implementacja metod CRUD w kontrolerze
 4. Dodanie ról i powiązań z użytkownikami.
+5. Dodanie warstwy security
 
 #Todo
 1. Dodanie walidacji na obiektach wejściowych 
@@ -14,8 +15,8 @@ Simple foodSharing Springboot app
 4. Przesyłanie obrazków
 
 # in progress
-3. Dodanie warstwy security
-
+Implementacja serwisu użytkowników
+Problemz charSequence
 
 # Security
 
@@ -97,5 +98,25 @@ warto dla czystości kodu utrzymać separację konfiguracji.
 * Ustawienie password encodera w springu polega na ekspozycji beana ```@Bean PasswordEncoder```
 * Podczas startu aplikacji kontener springa wyszuka beana i użyje go do kodowania
 * NoOpPasswordEncoder jest przeźroczysty i nie hashuje hasła. Można go wywołać poprzez ```NoOpPasswordEncoder.getInstance();```
+* W aplikacji wykorzystywany jest BCryptPasswordEncoder
+
+#Openapi
+
+Opis, wizualizacja i testy api odbywają się za pomocą specyfikacji OpenApi 3.0 wcześniej znanej jako Swagger Specification. Specyfikacja ta pozwala na wygodne przeglądanie end-pointów aplikacji.
+
+## Konfiguracja openapi w aplikacji:
+1. Dodanie do projektu zależności ```        <dependency>
+   <groupId>org.springdoc</groupId>
+   <artifactId>springdoc-openapi-ui</artifactId>
+   <version>1.5.2</version>
+   </dependency>
+   <dependency>
+   <groupId>org.springdoc</groupId>
+   <artifactId>springdoc-openapi-data-rest</artifactId>
+   <version>1.5.2</version>
+   </dependency>```
+2. Utworzenie głównej klasy z konfiguracją _OpenApi30Config_ zawierającą nazwę API oraz context root.
+3. Wyodrębnienie interfejsów Operations z metodami implementowanymi przez kontrolery webowe oraz opisanie ich za pomocą właściwych adnotacji
+4. Interfejs graficzny dostępny jest pod adresem ```http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config```
 
 

@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface NoticeService {
 
-//    convert to dtos and paging
-    List<Notice> listAllNotices();
+  //    convert to dtos and paging
+  List<Notice> listAllNotices();
 
-    Notice createNotice(CreateNoticeDto createNoticeDto);
+  Notice createNotice(CreateNoticeDto createNoticeDto);
 
-    Notice updateNotice(long id, CreateNoticeDto createNoticeDto);
+  Notice updateNotice(long id, CreateNoticeDto createNoticeDto);
 
-    boolean deleteNotice(long id);
+  boolean deleteNotice(long id);
 }
