@@ -16,6 +16,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -30,7 +31,8 @@ import java.util.List;
 public class User implements Serializable {
   // extends RepresentationModel<User>
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+  @SequenceGenerator(name = "user_generator", sequenceName = "users_user_id_seq")
   @Column(name = "USER_ID")
   private Long userId;
 

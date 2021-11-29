@@ -9,7 +9,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDetailsImpl implements UserDetails {
+public class UserDetailsImpl
+        implements UserDetails
+{
 
   private final String userName;
   private final String password;

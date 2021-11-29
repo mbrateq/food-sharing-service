@@ -7,16 +7,18 @@ Simple foodSharing Springboot app
 3. Implementacja metod CRUD w kontrolerze
 4. Dodanie ról i powiązań z użytkownikami.
 5. Dodanie warstwy security
+6. Rozwiązanie problemu 403 z POST i PUT
+7. Rozwiązanie problemu sekwencji i hashowania hasła
 
 #Todo
 1. Dodanie walidacji na obiektach wejściowych 
 2. Dodanie zaawansowanego wyszukiwania ogłoszeń
 3. Dodanie mechanizmu usuwania przeterminowanych ogłoszeń
 4. Przesyłanie obrazków
+5. Dodanie transakcji
 
 # in progress
-Implementacja serwisu użytkowników
-Problemz charSequence
+dodanie walidacji hasła i czyszczenia tablicy z hasłem
 
 # Security
 
@@ -118,5 +120,5 @@ Opis, wizualizacja i testy api odbywają się za pomocą specyfikacji OpenApi 3.
 2. Utworzenie głównej klasy z konfiguracją _OpenApi30Config_ zawierającą nazwę API oraz context root.
 3. Wyodrębnienie interfejsów Operations z metodami implementowanymi przez kontrolery webowe oraz opisanie ich za pomocą właściwych adnotacji
 4. Interfejs graficzny dostępny jest pod adresem ```http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config```
-
+5.dlaczego przechodzą tylko gety???
 

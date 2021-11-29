@@ -3,7 +3,7 @@ package pl.sggw.foodsharingservice.web.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
+//import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,14 +28,14 @@ public class TestController {
     return ResponseEntity.ok("Hello from admin");
   }
 
-  @GetMapping(value = "/user", produces = "text/plain")
-  public ResponseEntity<String> user(
-      @CurrentSecurityContext(expression = "authentication?.name") String username) {
-    return ResponseEntity.ok("Hello from User: " + username);
-  }
-
-  @GetMapping(value = "/password/{pass}", produces = "text/plain")
-  public ResponseEntity<String> getPassword(@PathVariable String pass) {
-    return ResponseEntity.ok(passwordEncoderService.getPasswordEncoder().encode(pass));
-  }
+//  @GetMapping(value = "/user", produces = "text/plain")
+//  public ResponseEntity<String> user(
+//      @CurrentSecurityContext(expression = "authentication?.name") String username) {
+//    return ResponseEntity.ok("Hello from User: " + username);
+//  }
+//
+//  @GetMapping(value = "/password/{pass}", produces = "text/plain")
+//  public ResponseEntity<String> getPassword(@PathVariable String pass) {
+//    return ResponseEntity.ok(passwordEncoderService.getPasswordEncoder().encode(pass));
+//  }
 }

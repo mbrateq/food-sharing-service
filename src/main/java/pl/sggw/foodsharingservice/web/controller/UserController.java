@@ -3,7 +3,7 @@ package pl.sggw.foodsharingservice.web.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.sggw.foodsharingservice.model.dto.CreateUserDto;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.service.UserService;
+import pl.sggw.foodsharingservice.web.controller.api.UserOperations;
 
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequestMapping("api/v1")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserOperations {
 
   private final UserService userService;
 
@@ -50,5 +51,10 @@ public class UserController {
   @PostMapping(value = "/user", produces = "application/json")
   public ResponseEntity<User> addUser(@RequestBody CreateUserDto createUserDto) {
     return ResponseEntity.ok(userService.addUser(createUserDto));
+  }
+
+  @PutMapping(value = "/test1", produces = "application/json")
+  public ResponseEntity<String> test() {
+    return ResponseEntity.ok("test123");
   }
 }

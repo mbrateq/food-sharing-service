@@ -9,7 +9,9 @@ import pl.sggw.foodsharingservice.model.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
-class UserDetailsServiceImpl implements UserDetailsService {
+class UserDetailsServiceImpl
+        implements UserDetailsService
+{
 
   private final UserRepository userRepository;
 

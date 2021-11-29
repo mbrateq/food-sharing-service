@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,7 +31,8 @@ import java.time.LocalDateTime;
 public class Notice extends RepresentationModel<Notice> implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notice_generator")
+    @SequenceGenerator(name = "notice_generator", sequenceName = "notices_notice_id_seq")
     @Column(name = "NOTICE_ID")
     private Long noticeId;
 

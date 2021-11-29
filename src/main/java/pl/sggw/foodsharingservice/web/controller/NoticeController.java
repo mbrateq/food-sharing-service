@@ -35,7 +35,10 @@ public class NoticeController implements NoticeOperations {
 
     @Override
     @PostMapping(value = "/notice", produces = "application/json")
-    public ResponseEntity<Notice> createNotice(@RequestBody CreateNoticeDto createNoticeDto, @CurrentSecurityContext(expression = "authentication?.name") String username) {
+    public ResponseEntity<Notice> createNotice(@RequestBody CreateNoticeDto createNoticeDto
+            , @CurrentSecurityContext(expression = "authentication?.name") String username
+            )
+    {
         return ResponseEntity.ok(noticeService.createNotice(createNoticeDto));
     }
 

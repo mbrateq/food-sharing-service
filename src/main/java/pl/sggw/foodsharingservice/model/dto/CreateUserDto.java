@@ -7,5 +7,6 @@ import lombok.Value;
 @Value
 public class CreateUserDto {
     private String username;
-    private CharSequence password;
+    private char[] password;
+
 }
