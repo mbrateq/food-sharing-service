@@ -8,5 +8,4 @@ import lombok.Value;
 public class CreateUserDto {
     private String username;
     private char[] password;
-
 }
