@@ -16,6 +16,8 @@ Simple foodSharing Springboot app
 3. Dodanie mechanizmu usuwania przeterminowanych ogłoszeń
 4. Przesyłanie obrazków
 5. Dodanie transakcji
+6. Wysyłanie linka z rejestracją (https://www.baeldung.com/registration-verify-user-by-email)
+7. dodanie stronicowania
 
 # in progress
 dodanie walidacji hasła i czyszczenia tablicy z hasłem
@@ -121,4 +123,13 @@ Opis, wizualizacja i testy api odbywają się za pomocą specyfikacji OpenApi 3.
 3. Wyodrębnienie interfejsów Operations z metodami implementowanymi przez kontrolery webowe oraz opisanie ich za pomocą właściwych adnotacji
 4. Interfejs graficzny dostępny jest pod adresem ```http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config```
 5.dlaczego przechodzą tylko gety???
+
+
+Konfiguracja docker: (problem z innymi obrazami)
+docker run --name postgresql-container -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres:14.2
+
+Linki:
+login: http://localhost:8080/fss/login#/
+main: http://localhost:8080/fss/swagger-ui/index.html?configUrl=/fss/v3/api-docs/swagger-config
+api-docs: http://localhost:8080/fss/v3/api-docs
 

@@ -1,22 +1,40 @@
 # docker run --name fssdb -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
-# docker-compose.yml
-version: '3'
+## docker-compose.yml
+#version: '3'
+#services:
+#  database:
+#    image: fssdb
+#    build:
+#      context: dockerfile/fssdb
+#      dockerfile: Dockerfile
+##    environment:
+##      POSTGRES_USER: postgres
+##      POSTGRES_PASSWORD: postgres
+##      POSTGRES_DB: fssdb
+#    env_file:
+#      - dockerfile/fssdb/database.env # configure postgres
+#    ports:
+#      - 5432:5432
+#    volumes:
+#      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+#volumes:
+#  database-data: # named volumes can be managed easier using docker-compose
+#    external: false
+version: '2'
 services:
-  database:
-    image: fssdb
-    build:
-      context: dockerfile/fssdb
-      dockerfile: Dockerfile
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: postgres
-#      POSTGRES_DB: fssdb
-    env_file:
-      - dockerfile/fssdb/database.env # configure postgres
+  db:
+    container_name: sample_db
+    image: postgres:9.5
+    volumes:
+      - sample_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=sample
+      - POSTGRES_USER=sample
+      - POSTGRES_DB=sample
+      - PGDATA=/var/lib/postgresql/data/pgdata
     ports:
       - 5432:5432
-    volumes:
-      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+
 volumes:
-  database-data: # named volumes can be managed easier using docker-compose
-    external: false
+  sample_db: {}
+

@@ -31,8 +31,9 @@ import java.util.List;
 public class User implements Serializable {
   // extends RepresentationModel<User>
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-  @SequenceGenerator(name = "user_generator", sequenceName = "users_user_id_seq")
+//  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+//  @SequenceGenerator(name = "user_generator", sequenceName = "users_user_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "USER_ID")
   private Long userId;
 
@@ -44,6 +45,9 @@ public class User implements Serializable {
 
   @Column(name = "ENABLED", columnDefinition = "boolean default false")
   private boolean enabled;
+
+  @Column(name = "TO_DELETE", columnDefinition = "boolean default false")
+  private boolean toDelete;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
   @JoinTable(

@@ -1,4 +1,4 @@
-package pl.sggw.foodsharingservice.web.controller.api;
+package pl.sggw.foodsharingservice.web.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

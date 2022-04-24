@@ -31,15 +31,16 @@ import java.time.LocalDateTime;
 public class Notice extends RepresentationModel<Notice> implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notice_generator")
-    @SequenceGenerator(name = "notice_generator", sequenceName = "notices_notice_id_seq")
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notice_generator")
+//    @SequenceGenerator(name = "notice_generator", sequenceName = "notices_notice_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NOTICE_ID")
     private Long noticeId;
 
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "CONTENT")
+    @Column(name = "TEXT_CONTENT")
     private String content;
 
     @Column(name = "PUBLICATION_DATE")
@@ -49,7 +50,7 @@ public class Notice extends RepresentationModel<Notice> implements Serializable 
     private LocalDate expirationDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "AUTHOR")
     private User author;
 
 

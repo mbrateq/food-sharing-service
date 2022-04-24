@@ -3,11 +3,14 @@ package pl.sggw.foodsharingservice.base;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.h2.tools.RunScript;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.sggw.foodsharingservice.model.repository.NoticeRepository;
+import pl.sggw.foodsharingservice.model.repository.UserRepository;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -32,6 +35,9 @@ public class IntegrationTestBase {
     @Autowired
     private DataSource source;
 
+    @Autowired protected UserRepository userRepository;
+    @Autowired protected NoticeRepository noticeRepository;
+
     public void executeScript(String fileName){
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         try(Connection dbConnection = source.getConnection();
@@ -42,6 +48,10 @@ public class IntegrationTestBase {
         } catch (SQLException | IOException ex) {
             throw new RuntimeException(ex);
         }
+    }
+    @BeforeEach
+    private void init() {
+        clearDatabase();
     }
 
     public void clearDatabase(){this.executeScript("clear-database.sql");}

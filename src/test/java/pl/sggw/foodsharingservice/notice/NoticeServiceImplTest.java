@@ -1,11 +1,11 @@
 package pl.sggw.foodsharingservice.notice;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.sggw.foodsharingservice.base.IntegrationTestBase;
 import pl.sggw.foodsharingservice.model.dto.CreateNoticeDto;
 import pl.sggw.foodsharingservice.model.entity.Notice;
+import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.service.NoticeServiceImpl;
 
 import java.time.LocalDate;
@@ -16,11 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class NoticeServiceImplTest extends IntegrationTestBase {
 
   @Autowired private NoticeServiceImpl noticeService;
-
-  @BeforeEach
-  private void init() {
-    clearDatabase();
-  }
 
   @Test
   void checkIfFindAllReturnsProperResult() {
@@ -47,6 +42,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
             .content("test")
             .expirationDate(LocalDate.of(2020, 10, 10))
             .build();
+    final var author = userRepository.save(User.builder().username("uname").enabled(true).password("pass").build());
     //        when
     Notice notice = noticeService.createNotice(givenCreateNoticeDto);
     //        then
@@ -62,7 +58,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
     void checkIfProperlyUpdatesNotice() {
         //        given
         executeScript("notice/create-single-notice.sql");
-        final long givenNoticeId = 10;
+        final long givenNoticeId = 1;
         final String expectedTitle = "UPDATED";
         final String expectedContent = "UPDATED";
         final LocalDate expectedExpirationDate = LocalDate.of(2022,11,11);

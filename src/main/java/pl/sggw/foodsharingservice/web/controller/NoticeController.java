@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.sggw.foodsharingservice.model.dto.CreateNoticeDto;
 import pl.sggw.foodsharingservice.model.entity.Notice;
 import pl.sggw.foodsharingservice.service.NoticeService;
-import pl.sggw.foodsharingservice.web.controller.api.NoticeOperations;
+import pl.sggw.foodsharingservice.web.api.NoticeOperations;
 
 import java.util.List;
 

@@ -7,6 +7,7 @@ import pl.sggw.foodsharingservice.model.dto.CreateNoticeDto;
 import pl.sggw.foodsharingservice.model.entity.Notice;
 import pl.sggw.foodsharingservice.model.mapper.NoticeMapstructMapper;
 import pl.sggw.foodsharingservice.model.repository.NoticeRepository;
+import pl.sggw.foodsharingservice.model.repository.UserRepository;
 import pl.sggw.foodsharingservice.security.PasswordEncoderService;
 
 import javax.persistence.EntityNotFoundException;
@@ -17,43 +18,46 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoticeServiceImpl implements NoticeService {
 
-  private final NoticeRepository noticeRepository;
+    private final NoticeRepository noticeRepository;
+    private final UserRepository userRepository;
 
-  @Override
-  public List<Notice> listAllNotices() {
-    return noticeRepository.findAll();
-  }
-
-  @Override
-  public Notice createNotice(CreateNoticeDto createNoticeDto) {
-    return noticeRepository.save(
-        Notice.builder()
-            .title(createNoticeDto.getTitle())
-            .content(createNoticeDto.getContent())
-            .expirationDate(createNoticeDto.getExpirationDate())
-            .publicationDateTime(LocalDateTime.now())
-            .build());
-  }
-
-  @Override
-  public Notice updateNotice(long id, CreateNoticeDto createNoticeDto) {
-    Notice notice = noticeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
-    return noticeRepository.save(
-        notice.toBuilder()
-            .title(createNoticeDto.getTitle())
-            .content(createNoticeDto.getContent())
-            .expirationDate(createNoticeDto.getExpirationDate())
-            .publicationDateTime(LocalDateTime.now())
-            .build());
-  }
-
-  @Override
-  public boolean deleteNotice(long id) {
-    if (noticeRepository.existsById(id)) {
-      noticeRepository.deleteById(id);
-      return true;
-    } else {
-      return false;
+    @Override
+    public List<Notice> listAllNotices() {
+        return noticeRepository.findAll();
     }
-  }
+
+    @Override
+    public Notice createNotice(CreateNoticeDto createNoticeDto) {
+        return noticeRepository.save(
+                Notice.builder()
+                        .title(createNoticeDto.getTitle())
+                        .content(createNoticeDto.getContent())
+                        .expirationDate(createNoticeDto.getExpirationDate())
+                        .publicationDateTime(LocalDateTime.now())
+                        //    FIXME add author from context
+                        .author(userRepository.findAll().get(0))
+                        .build());
+    }
+
+    @Override
+    public Notice updateNotice(long id, CreateNoticeDto createNoticeDto) {
+        Notice notice = noticeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        return noticeRepository.save(
+                notice.toBuilder()
+                        .title(createNoticeDto.getTitle())
+                        .content(createNoticeDto.getContent())
+                        .expirationDate(createNoticeDto.getExpirationDate())
+                        .publicationDateTime(LocalDateTime.now())
+                        .build());
+    }
+
+    @Override
+    public boolean deleteNotice(long id) {
+        if (noticeRepository.existsById(id)) {
+            noticeRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

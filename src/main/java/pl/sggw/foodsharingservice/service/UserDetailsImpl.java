@@ -16,12 +16,14 @@ public class UserDetailsImpl
   private final String userName;
   private final String password;
   private final boolean active;
+  private final boolean toDelete;
   private List<GrantedAuthority> authorities;
 
   public UserDetailsImpl(User user) {
     this.userName = user.getUsername();
     this.password = user.getPassword();
     this.active = user.isEnabled();
+    this.toDelete = user.isToDelete();
     this.authorities =
         user.getRoles().stream()
             .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
@@ -59,7 +61,7 @@ public class UserDetailsImpl
     }
 
     @Override
-  public boolean isEnabled() {
+    public boolean isEnabled() {
     return active;
   }
 }
