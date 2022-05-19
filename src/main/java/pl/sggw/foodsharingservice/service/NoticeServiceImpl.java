@@ -3,6 +3,7 @@ package pl.sggw.foodsharingservice.service;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import pl.sggw.foodsharingservice.model.view.NoticeView;
 import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static pl.sggw.foodsharingservice.specification.NoticeSpecificationProvider.prepareDateSpecification;
@@ -40,11 +42,24 @@ public class NoticeServiceImpl implements NoticeService {
       if (queryStr.length() <= 2) {
         throw new ValidationException(format(ErrorMessages.QUERY_TOO_SHORT_MESSAGE, query.get()));
       }
-      return noticeRepository.findAll(
-          Specification.where(prepareQuerySpecification(queryStr, true)), pageable);
+      final Page<Notice> resultPage =
+          noticeRepository.findAll(
+              Specification.where(prepareQuerySpecification(queryStr, true)), pageable);
+      return new PageImpl<>(
+          resultPage.stream()
+              .map(notice -> noticeMapper.toNoticeView(notice))
+              .collect(Collectors.toList()),
+          pageable,
+          resultPage.getTotalElements());
     } else {
-      return noticeRepository.findAll(
-          Specification.where(prepareDateSpecification(true)), pageable);
+      final Page<Notice> resultPage =
+          noticeRepository.findAll(Specification.where(prepareDateSpecification(true)), pageable);
+      return new PageImpl<>(
+          resultPage.stream()
+              .map(notice -> noticeMapper.toNoticeView(notice))
+              .collect(Collectors.toList()),
+          pageable,
+          resultPage.getTotalElements());
     }
   }
 
@@ -55,10 +70,24 @@ public class NoticeServiceImpl implements NoticeService {
       if (queryStr.length() <= 2) {
         throw new ValidationException(format(ErrorMessages.QUERY_TOO_SHORT_MESSAGE, query.get()));
       }
-      return noticeRepository.findAll(
-          Specification.where(prepareQuerySpecification(queryStr, false)), pageable);
+      final Page<Notice> resultPage =
+          noticeRepository.findAll(
+              Specification.where(prepareQuerySpecification(queryStr, false)), pageable);
+      return new PageImpl<>(
+          resultPage.stream()
+              .map(notice -> noticeMapper.toNoticeView(notice))
+              .collect(Collectors.toList()),
+          pageable,
+          resultPage.getTotalElements());
     } else {
-      return noticeRepository.findAll(prepareDateSpecification(false), pageable);
+      final Page<Notice> resultPage =
+          noticeRepository.findAll(prepareDateSpecification(false), pageable);
+      return new PageImpl<>(
+          resultPage.stream()
+              .map(notice -> noticeMapper.toNoticeView(notice))
+              .collect(Collectors.toList()),
+          pageable,
+          resultPage.getTotalElements());
     }
   }
 

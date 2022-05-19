@@ -34,6 +34,7 @@ class PublicServiceImplTest extends IntegrationTestBase {
         CreateUserDto.builder()
             .username(givenUsername)
             .password(givenPassword.toCharArray())
+            .phoneNumber("555555555")
             .build();
 
     //        when
@@ -46,7 +47,11 @@ class PublicServiceImplTest extends IntegrationTestBase {
     assertThat(result.size()).isEqualTo(1);
     final var resultUser = result.get(0);
     assertThat(resultUser.getUsername()).isEqualTo(givenUsername);
-    assertThat(passwordEncoderService.getPasswordEncoder().matches(CharBuffer.wrap(givenPassword.toCharArray()),resultUser.getPassword())).isTrue();
+    assertThat(
+            passwordEncoderService
+                .getPasswordEncoder()
+                .matches(CharBuffer.wrap(givenPassword.toCharArray()), resultUser.getPassword()))
+        .isTrue();
     assertThat(resultUser.isEnabled()).isFalse();
     assertThat(resultUser.isToDelete()).isFalse();
     assertThat(resultUser.getRoles().isEmpty()).isTrue();
@@ -61,6 +66,7 @@ class PublicServiceImplTest extends IntegrationTestBase {
         CreateUserDto.builder()
             .username(givenUsername)
             .password(givenPassword.toCharArray())
+            .phoneNumber("555555555")
             .build();
     publicService.addUser(createUserDto);
     //        when

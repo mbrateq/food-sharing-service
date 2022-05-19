@@ -30,14 +30,10 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(
     name = "USERS"
-    //        , indexes = @Index(name = "CTD", columnList = "USERNAME")
     )
 @Entity
 public class User implements Serializable {
-  // extends RepresentationModel<User>
   @Id
-  //  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-  //  @SequenceGenerator(name = "user_generator", sequenceName = "users_user_id_seq")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "USER_ID")
   private Long userId;
@@ -47,6 +43,9 @@ public class User implements Serializable {
 
   @Column(name = "PASSWORD")
   private String password;
+
+  @Column(name = "PHONE")
+  private String phone;
 
   @Column(name = "ENABLED", columnDefinition = "boolean default false")
   private boolean enabled;

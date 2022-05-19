@@ -25,6 +25,7 @@ public class UserMapperTest {
     final var givenRole = Role.builder().roleName(givenRoleName).roleId(givenId).build();
     final var givenRolesSet = Collections.singleton(givenRole);
     final var givenUsername = "USERNAME";
+    final var givenPhone = "555555555";
     final var givenEnabled = true;
     final var givenToDelete = false;
 
@@ -38,6 +39,7 @@ public class UserMapperTest {
             .enabled(givenEnabled)
             .toDelete(givenToDelete)
             .roles(givenRolesSet)
+            .phone(givenPhone)
             .build();
 
     final var expectedResult =
@@ -47,6 +49,7 @@ public class UserMapperTest {
             .enabled(givenEnabled)
             .toDelete(givenToDelete)
             .roles(givenRoleViewsSet)
+            .phone(givenPhone)
             .build();
 
     // when

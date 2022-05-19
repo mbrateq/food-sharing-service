@@ -35,7 +35,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
     //        given
     final var user =
         userRepository.save(
-            User.builder().username("username").password("secret").enabled(initialStatus).build());
+            User.builder().username("username").password("secret").enabled(initialStatus).phone("555555555").build());
     final var userId = user.getUserId();
 
     //        when
@@ -70,7 +70,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
     //    given
     final var user =
         userRepository.save(
-            User.builder().username("username").password("password").enabled(true).build());
+            User.builder().username("username").password("password").phone("555555555").enabled(true).build());
     final var userid = user.getUserId();
 
     //    when
@@ -99,7 +99,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
     final var role = roleRepository.save(Role.builder().roleName("ROLE_ADMIN").build());
     final var user =
         userRepository.save(
-            User.builder().username("username").password("password").enabled(true).build());
+            User.builder().username("username").password("password").phone("555555555").enabled(true).build());
 
     //    when
     adminService.grantRole(user.getUserId(), RoleType.ROLE_ADMIN);
@@ -126,7 +126,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
   void shouldThrowValidationExceptionWhileTryingToGrantNonExistingRole() {
     final var user =
             userRepository.save(
-                    User.builder().username("username").password("password").enabled(true).build());
+                    User.builder().username("username").password("password").phone("555555555").enabled(true).build());
 
     //        when
     Throwable t = catchThrowable(() -> adminService.grantRole(1, RoleType.ROLE_ADMIN));
@@ -142,7 +142,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
     //    given
     final var user =
             userRepository.save(
-                    User.builder().username("username").password("password").enabled(true).build());
+                    User.builder().username("username").password("password").phone("555555555").enabled(true).build());
     roleRepository.save(Role.builder().roleName("ROLE_ADMIN").build());
     adminService.grantRole(user.getUserId(), RoleType.ROLE_ADMIN);
 
@@ -170,7 +170,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
   void shouldThrowValidationExceptionWhileTryingToRejectNonExistingRole() {
     final var user =
             userRepository.save(
-                    User.builder().username("username").password("password").enabled(true).build());
+                    User.builder().username("username").password("password").phone("555555555").enabled(true).build());
 
     //        when
     Throwable t = catchThrowable(() -> adminService.rejectRole(1, RoleType.ROLE_ADMIN));

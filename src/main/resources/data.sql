@@ -10,6 +10,7 @@ CREATE TABLE USERS
     USERNAME VARCHAR(255)          NOT NULL UNIQUE,
     ENABLED  BOOLEAN DEFAULT FALSE NOT NULL,
     TO_DELETE BOOLEAN DEFAULT FALSE NOT NULL,
+    PHONE VARCHAR(10) NOT NULL,
     PRIMARY KEY (USER_ID)
 );
 
@@ -52,14 +53,14 @@ INSERT INTO roles (role_id, role_name) VALUES (DEFAULT,'ROLE_ADMIN');
 
 -- INSERT USERS
 --password:secret
-INSERT INTO users (user_id, enabled, password, username)
-VALUES (DEFAULT, true,'$2a$10$lTBRa6LF1UR5yoL7K7bIzOkWdn/BFB4h7hxy97CCcc/sKyHfDMLPS', 'user');
-INSERT INTO users (user_id, enabled, password, username)
-VALUES (DEFAULT, true,'$2a$10$lTBRa6LF1UR5yoL7K7bIzOkWdn/BFB4h7hxy97CCcc/sKyHfDMLPS', 'admin');
-INSERT INTO users (user_id, enabled, password, username)
-VALUES (DEFAULT, true,'$2a$10$lTBRa6LF1UR5yoL7K7bIzOkWdn/BFB4h7hxy97CCcc/sKyHfDMLPS', 'super');
-INSERT INTO users (user_id, enabled, password, username)
-VALUES (DEFAULT, true,'$2a$10$lTBRa6LF1UR5yoL7K7bIzOkWdn/BFB4h7hxy97CCcc/sKyHfDMLPS', 'none');
+INSERT INTO users (user_id, enabled, password, username, phone)
+VALUES (DEFAULT, true,'$2a$10$lTBRa6LF1UR5yoL7K7bIzOkWdn/BFB4h7hxy97CCcc/sKyHfDMLPS', 'user','555555555');
+INSERT INTO users (user_id, enabled, password, username, phone)
+VALUES (DEFAULT, true,'$2a$10$lTBRa6LF1UR5yoL7K7bIzOkWdn/BFB4h7hxy97CCcc/sKyHfDMLPS', 'admin','555555555');
+INSERT INTO users (user_id, enabled, password, username, phone)
+VALUES (DEFAULT, true,'$2a$10$lTBRa6LF1UR5yoL7K7bIzOkWdn/BFB4h7hxy97CCcc/sKyHfDMLPS', 'super','555555555');
+INSERT INTO users (user_id, enabled, password, username, phone)
+VALUES (DEFAULT, true,'$2a$10$lTBRa6LF1UR5yoL7K7bIzOkWdn/BFB4h7hxy97CCcc/sKyHfDMLPS', 'none','555555555');
 
 
 INSERT INTO users_roles (user_id, role_id) VALUES (1, 1);

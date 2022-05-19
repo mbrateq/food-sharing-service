@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import pl.sggw.foodsharingservice.model.repository.NoticeRepository;
 import pl.sggw.foodsharingservice.model.repository.RoleRepository;
 import pl.sggw.foodsharingservice.model.repository.UserRepository;
+import pl.sggw.foodsharingservice.model.repository.UserRolesRepository;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class IntegrationTestBase {
     @Autowired protected UserRepository userRepository;
     @Autowired protected NoticeRepository noticeRepository;
     @Autowired protected RoleRepository roleRepository;
+    @Autowired protected UserRolesRepository userRolesRepository;
 
     public void executeScript(String fileName){
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();

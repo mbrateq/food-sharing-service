@@ -11,6 +11,7 @@ import pl.sggw.foodsharingservice.model.dto.UpdatePasswordDto;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.model.mapper.UserMapper;
 import pl.sggw.foodsharingservice.model.repository.UserRepository;
+import pl.sggw.foodsharingservice.model.repository.UserRolesRepository;
 import pl.sggw.foodsharingservice.model.view.UserView;
 import pl.sggw.foodsharingservice.security.PasswordEncoderService;
 
@@ -26,6 +27,7 @@ import static java.lang.String.format;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
+  private final UserRolesRepository userRolesRepository;
   private final PasswordEncoderService passwordEncoderService;
   private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
@@ -63,6 +65,7 @@ public class UserServiceImpl implements UserService {
                 () ->
                     new ValidationException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, username)));
+    userRolesRepository.deleteAll(userRolesRepository.findByUserId(user.getUserId()));
     return userMapper.toUserView(
         userRepository.save(user.toBuilder().enabled(false).toDelete(true).build()));
   }
@@ -70,15 +73,18 @@ public class UserServiceImpl implements UserService {
   @Override
   public Page<UserView> searchUsersByUsername(Optional<String> query, Pageable pageable) {
     if (query.isPresent()) {
+      final Page<User> page =
+          userRepository.findByUsernameContainingAndToDeleteFalse(query.get(), pageable);
       return new PageImpl<>(
-          userRepository.findByUsernameContainingAndToDeleteFalse(query.get(), pageable).stream()
-              .map(user -> userMapper.toUserView(user))
-              .collect(Collectors.toList()));
+          page.stream().map(user -> userMapper.toUserView(user)).collect(Collectors.toList()),
+          pageable,
+          page.getTotalElements());
     } else {
+      final Page<User> page = userRepository.findAll(pageable);
       return new PageImpl<>(
-          userRepository.findAll(pageable).stream()
-              .map(user -> userMapper.toUserView(user))
-              .collect(Collectors.toList()));
+          page.stream().map(user -> userMapper.toUserView(user)).collect(Collectors.toList()),
+          pageable,
+          page.getTotalElements());
     }
   }
 }

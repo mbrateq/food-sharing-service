@@ -32,7 +32,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldFindAllActiveNotices() {
     //      given
     final var user =
-        userRepository.save(User.builder().username("username").password("password").build());
+        userRepository.save(User.builder().username("username").password("password").phone("555555555").build());
     final var expectedSize = 5;
     for (int i = 0; i < expectedSize; i++) {
       final var title = format("title %s", i);
@@ -70,7 +70,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldFindAllInactiveNotices() {
     //      given
     final var user =
-            userRepository.save(User.builder().username("username").password("password").build());
+            userRepository.save(User.builder().username("username").password("password").phone("555555555").build());
     final var expectedSize = 5;
     for (int i = 0; i < expectedSize; i++) {
       final var title = format("title %s", i);
@@ -146,7 +146,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldFindNoticesByQuery(String title, String content, String query, int expectedResult) {
     //      given
     final var user =
-        userRepository.save(User.builder().username("username").password("pass").build());
+        userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     noticeRepository.save(
         Notice.builder()
             .title(title)
@@ -179,7 +179,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldFindInactiveNoticesByQuery(String title, String content, String query, int expectedResult) {
     //      given
     final var user =
-            userRepository.save(User.builder().username("username").password("pass").build());
+            userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     noticeRepository.save(
             Notice.builder()
                     .title(title)
@@ -221,7 +221,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldFindWithDateCondition(LocalDate expirationDate, int expectedResult) {
     //      given
     final var user =
-        userRepository.save(User.builder().username("username").password("pass").build());
+        userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     noticeRepository.save(
         Notice.builder()
             .title("title")
@@ -248,7 +248,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldCreateNotice() {
     //    given
     final var user =
-        userRepository.save(User.builder().username("username").password("pass").build());
+        userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     final var givenTitle = "TITLE";
     final var givenContent = "CONTENT";
     final var givenCategoryType = CategoryType.FOOD;
@@ -301,7 +301,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldUpdateNotice() {
     //    given
     final var user =
-        userRepository.save(User.builder().username("username").password("pass").build());
+        userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     final var givenTitle = "TITLE";
     final var givenNewTitle = "NEW_TITLE";
     final var givenContent = "CONTENT";
@@ -353,7 +353,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldThrowValidationExceptionOnAttemptToUpdateNoticeWithNonExistingNotice() {
     // given
     final var user =
-        userRepository.save(User.builder().username("username").password("pass").build());
+        userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     final var updateNoticeDto = UpdateNoticeDto.builder().build();
     // when
     Throwable t = catchThrowable(() -> noticeService.updateNotice(1L, updateNoticeDto, "username"));
@@ -368,7 +368,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldReturnTrueAfterDeletingTheNotice() {
     //    given
     final var user =
-        userRepository.save(User.builder().username("username").password("pass").build());
+        userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     final var givenTitle = "TITLE";
     final var givenContent = "CONTENT";
     final var givenCategoryType = CategoryType.FOOD;
@@ -406,7 +406,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldReturnTrueAfterDeactivatingTheNotice() {
     //    given
     final var user =
-        userRepository.save(User.builder().username("username").password("pass").build());
+        userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     final var givenTitle = "TITLE";
     final var givenContent = "CONTENT";
     final var givenCategoryType = CategoryType.FOOD;
@@ -453,7 +453,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
   void shouldThrowValidationExceptionOnAttemptToDeactivateNoticeWithBadUsernameOrId() {
     // given
     final var user =
-        userRepository.save(User.builder().username("username").password("pass").build());
+        userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     // when
     Throwable t = catchThrowable(() -> noticeService.deactivateNotice(2L, "username"));
 

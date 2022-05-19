@@ -46,6 +46,7 @@ public class PublicServiceImpl implements PublicService {
                     passwordEncoderService
                         .getPasswordEncoder()
                         .encode(CharBuffer.wrap(createUserDto.getPassword())))
+                .phone(createUserDto.getPhoneNumber())
                 .build()));
   }
 }

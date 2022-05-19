@@ -10,15 +10,17 @@ Simple foodSharing Springboot app
 6. Rozwiązanie problemu 403 z POST i PUT
 7. Rozwiązanie problemu sekwencji i hashowania hasła
 8. Dodanie walidacji na obiektach wejściowych
+9. Dodanie mechanizmu usuwania przeterminowanych ogłoszeń
+10. ~~4. Przesyłanie obrazków~~
+11. ~~dodanie walidacji hasła i czyszczenia tablicy z hasłem~~
+12. dodanie numeru telefonu użytkownika
 
 #Todo
-3. Dodanie mechanizmu usuwania przeterminowanych ogłoszeń
-~~4. Przesyłanie obrazków~~
 5. Wysyłanie linka z rejestracją (https://www.baeldung.com/registration-verify-user-by-email)
-6. dodanie numeru telefonu użytkownika
+7. Testy integracyjne kontrolerów.
+8. Dodanie linków
 
 # in progress
-dodanie walidacji hasła i czyszczenia tablicy z hasłem
 
 # Security
 
@@ -45,7 +47,7 @@ dodanie walidacji hasła i czyszczenia tablicy z hasłem
 * z poziomu application properties za pomocą przełącznika:
 ```spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration```
 
-* za pomocą adnotacji na głównej klasie aplikacji:
+* za pomocą adnotacji :
 ```@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })```
 
 ** Nie ma potrzeby wyłączania domyślnej strony logowania podczas nadpisywania konfiguracji 

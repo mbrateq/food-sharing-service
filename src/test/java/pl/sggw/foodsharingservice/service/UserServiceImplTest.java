@@ -39,6 +39,7 @@ class UserServiceImplTest extends IntegrationTestBase {
                     passwordEncoderService
                         .getPasswordEncoder()
                         .encode(CharBuffer.wrap(givenOldPassword.toCharArray())))
+                .phone("555555555")
                 .build());
     final var updatePasswordDto =
         UpdatePasswordDto.builder()
@@ -85,6 +86,7 @@ class UserServiceImplTest extends IntegrationTestBase {
                     passwordEncoderService
                         .getPasswordEncoder()
                         .encode(CharBuffer.wrap(givenOldPassword.toCharArray())))
+                .phone("555555555")
                 .build());
     final var updatePasswordDto =
         UpdatePasswordDto.builder()
@@ -96,78 +98,81 @@ class UserServiceImplTest extends IntegrationTestBase {
     Throwable t = catchThrowable(() -> userService.updatePassword("username", updatePasswordDto));
 
     //    then
-    assertThat(t).isInstanceOf(ValidationException.class).hasMessage(ErrorMessages.INVALID_PASSWORD_MESSAGE);
+    assertThat(t)
+        .isInstanceOf(ValidationException.class)
+        .hasMessage(ErrorMessages.INVALID_PASSWORD_MESSAGE);
   }
 
   @Test
   void shouldPrepareToDelete() {
-      final var givenPassword = "secret";
-      final var givenUsername = "username";
-      final var user =
-              userRepository.save(
-                      User.builder()
-                              .username("username")
-                              .password(
-                                      passwordEncoderService
-                                              .getPasswordEncoder()
-                                              .encode(CharBuffer.wrap(givenPassword.toCharArray())))
-                              .enabled(true)
-                              .toDelete(false)
-                              .build());
+    final var givenPassword = "secret";
+    final var givenUsername = "username";
+    final var user =
+        userRepository.save(
+            User.builder()
+                .username("username")
+                .password(
+                    passwordEncoderService
+                        .getPasswordEncoder()
+                        .encode(CharBuffer.wrap(givenPassword.toCharArray())))
+                .phone("555555555")
+                .enabled(true)
+                .toDelete(false)
+                .build());
 
-//      when
-      userService.prepareToDeleteOwnAccount(givenUsername);
-//      then
-      final var result = userRepository.findByUsernameAndToDeleteTrue(givenUsername).get();
-//      TODO
-      assertThat(result.isToDelete()).isTrue();
-      assertThat(result.isEnabled()).isFalse();
+    //      when
+    userService.prepareToDeleteOwnAccount(givenUsername);
+    //      then
+    final var result = userRepository.findByUsernameAndToDeleteTrue(givenUsername).get();
+    assertThat(result.isToDelete()).isTrue();
+    assertThat(result.isEnabled()).isFalse();
   }
 
-    @Test
-    void shouldThrowValidationExceptionWhileTryingDeleteNonExistingUser() {
-        //        when
-        Throwable t =
-                catchThrowable(
-                        () -> userService.prepareToDeleteOwnAccount("username"));
+  @Test
+  void shouldThrowValidationExceptionWhileTryingDeleteNonExistingUser() {
+    //        when
+    Throwable t = catchThrowable(() -> userService.prepareToDeleteOwnAccount("username"));
 
-        //    then
-        assertThat(t)
-                .isInstanceOf(ValidationException.class)
-                .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, "username"));
-    }
+    //    then
+    assertThat(t)
+        .isInstanceOf(ValidationException.class)
+        .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, "username"));
+  }
 
-    @Test
-    void shouldFindAllUsers(){
-//      given
-      final var expectedSize = 5;
-      for(int i = 0; i<expectedSize; i++){
-          final var username = format("test%s", i);
-          userRepository.save(User.builder().username(username).password("pass").build());
-        }
-//      when
-       final var  result =  userService.searchUsersByUsername(Optional.empty(), PageRequest.of(0,20));
-//      then
-        assertThat(result.stream().count()).isEqualTo(expectedSize);
+  @Test
+  void shouldFindAllUsers() {
+    //      given
+    final var expectedSize = 5;
+    for (int i = 0; i < expectedSize; i++) {
+      final var username = format("test%s", i);
+      userRepository.save(
+          User.builder().username(username).password("pass").phone("555555555").build());
     }
+    //      when
+    final var result = userService.searchUsersByUsername(Optional.empty(), PageRequest.of(0, 20));
+    //      then
+    assertThat(result.stream().count()).isEqualTo(expectedSize);
+  }
 
-    @ParameterizedTest
-    @MethodSource("shouldFindAllUsersByQueryData")
-    void shouldFindAllUsersByQuery(String username, String query, int expectedResult){
-//      given
-            userRepository.save(User.builder().username(username).password("pass").build());
+  @ParameterizedTest
+  @MethodSource("shouldFindAllUsersByQueryData")
+  void shouldFindAllUsersByQuery(String username, String query, int expectedResult) {
+    //      given
+    userRepository.save(
+        User.builder().username(username).phone("5555555555").password("pass").build());
 
-//      when
-        final var  result =  userService.searchUsersByUsername(Optional.ofNullable(query), PageRequest.of(0,20));
-//      then
-        assertThat(result.stream().count()).isEqualTo(expectedResult);
-    }
-    private static Stream<Arguments> shouldFindAllUsersByQueryData() {
-        return Stream.of(
-                Arguments.of("username","username", 1),
-                Arguments.of("username","rna", 1),
-                Arguments.of("username","abc", 0),
-                Arguments.of("blablabla","bla", 1)
-        );
-    }
+    //      when
+    final var result =
+        userService.searchUsersByUsername(Optional.ofNullable(query), PageRequest.of(0, 20));
+    //      then
+    assertThat(result.stream().count()).isEqualTo(expectedResult);
+  }
+
+  private static Stream<Arguments> shouldFindAllUsersByQueryData() {
+    return Stream.of(
+        Arguments.of("username", "username", 1),
+        Arguments.of("username", "rna", 1),
+        Arguments.of("username", "abc", 0),
+        Arguments.of("blablabla", "bla", 1));
+  }
 }

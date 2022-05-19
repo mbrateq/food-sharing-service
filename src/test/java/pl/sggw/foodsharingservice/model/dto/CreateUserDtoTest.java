@@ -1,6 +1,5 @@
 package pl.sggw.foodsharingservice.model.dto;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,11 +18,13 @@ class CreateUserDtoTest {
 
   @ParameterizedTest
   @MethodSource("shouldValidateTheObjectData")
-  void shouldValidateTheObject(String username, String password, int violationsNumber) {
+  void shouldValidateTheObject(
+      String username, String password, String phoneNumber, int violationsNumber) {
     final var createUserDto =
         CreateUserDto.builder()
             .username(username)
             .password((password != null) ? password.toCharArray() : null)
+            .phoneNumber(phoneNumber)
             .build();
 
     Set<ConstraintViolation<CreateUserDto>> violations = validator.validate(createUserDto);
@@ -32,14 +33,18 @@ class CreateUserDtoTest {
 
   static Stream<Arguments> shouldValidateTheObjectData() {
     return Stream.of(
-        Arguments.of(null, "password", 1),
-        Arguments.of("username", null, 1),
-        Arguments.of("username", "password", 0),
-        Arguments.of("", "password", 2),
-        Arguments.of("username", "", 1),
-        Arguments.of("username", "passwor", 1),
-        Arguments.of("usernam", "passwor", 2),
-        Arguments.of("qwertyuiopasdfghjkla", "qwertyuiopasdfghjka", 0),
-        Arguments.of("qwertyuiopasdfghjklap", "qwertyuiopasdfghjklap", 2));
+        Arguments.of(null, "password", "111111111", 1),
+        Arguments.of("username", null, "111111111", 1),
+        Arguments.of("username", "password", "111111111", 0),
+        Arguments.of("", "password", "111111111", 2),
+        Arguments.of("username", "", "111111111", 1),
+        Arguments.of("username", "passwor", "111111111", 1),
+        Arguments.of("usernam", "passwor", "111111111", 2),
+        Arguments.of("qwertyuiopasdfghjkla", "qwertyuiopasdfghjka", "111111111", 0),
+        Arguments.of("qwertyuiopasdfghjklap", "qwertyuiopasdfghjklap", "111111111", 2),
+        Arguments.of("username", "password", "111111", 1),
+        Arguments.of("username", "password", null, 1),
+        Arguments.of("username", "password", "aaaaaaaaa", 1),
+        Arguments.of("username", "password", "11111111111", 1));
   }
 }

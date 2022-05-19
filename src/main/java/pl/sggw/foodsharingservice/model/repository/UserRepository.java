@@ -6,6 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import pl.sggw.foodsharingservice.model.entity.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -16,5 +17,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     Optional<User> findByUsernameAndToDeleteTrue(String username);
 
     Page<User> findByUsernameContainingAndToDeleteFalse(String username, Pageable pageable);
+
+    List<User> findByToDeleteTrue();
 
 }
