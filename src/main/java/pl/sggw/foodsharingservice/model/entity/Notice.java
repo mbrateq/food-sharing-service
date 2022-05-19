@@ -6,18 +6,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
+import pl.sggw.foodsharingservice.model.types.CategoryType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,11 +34,18 @@ public class Notice extends RepresentationModel<Notice> implements Serializable 
     @Column(name = "TEXT_CONTENT")
     private String content;
 
+    @Column(name = "CATEGORY")
+    @Enumerated(EnumType.STRING)
+    private CategoryType category;
+
     @Column(name = "PUBLICATION_DATE")
     private LocalDateTime publicationDateTime;
 
     @Column(name = "EXPIRATION_DATE")
     private LocalDate expirationDate;
+
+    @Column(name = "ACTIVE", columnDefinition = "boolean default true")
+    @Builder.Default private boolean active = true;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "AUTHOR")

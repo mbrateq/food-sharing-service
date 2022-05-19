@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sggw.foodsharingservice.model.dto.CreateUserDto;
-import pl.sggw.foodsharingservice.model.entity.User;
+import pl.sggw.foodsharingservice.model.view.UserView;
 import pl.sggw.foodsharingservice.service.PublicService;
 import pl.sggw.foodsharingservice.web.api.PublicOperations;
 
@@ -21,7 +21,7 @@ public class PublicController implements PublicOperations {
     private final PublicService publicService;
 
     @PostMapping(value = "register", produces = "application/json")
-    public ResponseEntity<User> addUser(@RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<UserView> addUser(@RequestBody CreateUserDto createUserDto) {
         return ResponseEntity.ok(publicService.addUser(createUserDto));
     }
 }

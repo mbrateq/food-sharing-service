@@ -9,15 +9,13 @@ Simple foodSharing Springboot app
 5. Dodanie warstwy security
 6. Rozwiązanie problemu 403 z POST i PUT
 7. Rozwiązanie problemu sekwencji i hashowania hasła
+8. Dodanie walidacji na obiektach wejściowych
 
 #Todo
-1. Dodanie walidacji na obiektach wejściowych 
-2. Dodanie zaawansowanego wyszukiwania ogłoszeń
 3. Dodanie mechanizmu usuwania przeterminowanych ogłoszeń
-4. Przesyłanie obrazków
-5. Dodanie transakcji
-6. Wysyłanie linka z rejestracją (https://www.baeldung.com/registration-verify-user-by-email)
-7. dodanie stronicowania
+~~4. Przesyłanie obrazków~~
+5. Wysyłanie linka z rejestracją (https://www.baeldung.com/registration-verify-user-by-email)
+6. dodanie numeru telefonu użytkownika
 
 # in progress
 dodanie walidacji hasła i czyszczenia tablicy z hasłem
@@ -132,4 +130,5 @@ Linki:
 login: http://localhost:8080/fss/login#/
 main: http://localhost:8080/fss/swagger-ui/index.html?configUrl=/fss/v3/api-docs/swagger-config
 api-docs: http://localhost:8080/fss/v3/api-docs
+
 

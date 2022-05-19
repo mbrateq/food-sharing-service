@@ -19,20 +19,25 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USERS", indexes = @Index(name = "CTD", columnList = "USERNAME"))
+@Table(
+    name = "USERS"
+    //        , indexes = @Index(name = "CTD", columnList = "USERNAME")
+    )
 @Entity
 public class User implements Serializable {
   // extends RepresentationModel<User>
   @Id
-//  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-//  @SequenceGenerator(name = "user_generator", sequenceName = "users_user_id_seq")
+  //  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+  //  @SequenceGenerator(name = "user_generator", sequenceName = "users_user_id_seq")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "USER_ID")
   private Long userId;
@@ -47,12 +52,12 @@ public class User implements Serializable {
   private boolean enabled;
 
   @Column(name = "TO_DELETE", columnDefinition = "boolean default false")
-  private boolean toDelete;
+  @Builder.Default private boolean toDelete = false;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
   @JoinTable(
       name = "USERS_ROLES",
       joinColumns = @JoinColumn(name = "USER_ID"),
       inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-  private List<Role> roles = new LinkedList<>();
+  private Set<Role> roles = new HashSet<>();
 }

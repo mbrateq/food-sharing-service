@@ -1,9 +1,10 @@
-package pl.sggw.foodsharingservice.model.dto;
+package pl.sggw.foodsharingservice.model.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.sggw.foodsharingservice.model.types.CategoryType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,4 +19,7 @@ public class NoticeView {
     private String content;
     private LocalDateTime publicationDateTime;
     private LocalDate expirationDate;
+    private CategoryType category;
+    private boolean active;
+    private String username;
 }

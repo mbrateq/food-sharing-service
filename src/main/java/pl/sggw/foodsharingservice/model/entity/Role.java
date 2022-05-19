@@ -1,8 +1,7 @@
 package pl.sggw.foodsharingservice.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +13,11 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Table(name="ROLES")
-@Entity
-@Data
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Entity
 public class Role implements Serializable {
 
     @Id

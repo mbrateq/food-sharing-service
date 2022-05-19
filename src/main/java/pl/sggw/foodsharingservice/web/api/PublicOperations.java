@@ -4,14 +4,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import pl.sggw.foodsharingservice.model.dto.CreateUserDto;
-import pl.sggw.foodsharingservice.model.entity.User;
-
-import java.util.List;
+import pl.sggw.foodsharingservice.model.view.UserView;
 
 @Tag(name = "PUBLIC", description = "Usługi publiczne")
 public interface PublicOperations {
 
   @Operation(summary ="Dodanie nowego użytkownika")
-  ResponseEntity<User> addUser(CreateUserDto createUserDto);
+  ResponseEntity<UserView> addUser(CreateUserDto createUserDto);
 
 }

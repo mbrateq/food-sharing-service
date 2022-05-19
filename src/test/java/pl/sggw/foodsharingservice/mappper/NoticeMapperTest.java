@@ -1,45 +1,63 @@
 package pl.sggw.foodsharingservice.mappper;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import pl.sggw.foodsharingservice.model.dto.NoticeView;
+import org.mapstruct.factory.Mappers;
 import pl.sggw.foodsharingservice.model.entity.Notice;
-import pl.sggw.foodsharingservice.model.mapper.NoticeMapstructMapper;
+import pl.sggw.foodsharingservice.model.entity.User;
+import pl.sggw.foodsharingservice.model.mapper.NoticeMapper;
+import pl.sggw.foodsharingservice.model.types.CategoryType;
+import pl.sggw.foodsharingservice.model.view.NoticeView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SpringBootTest
 public class NoticeMapperTest {
 
-  @Autowired private NoticeMapstructMapper mapper;
+  private final NoticeMapper mapper = Mappers.getMapper(NoticeMapper.class);
 
   @Test
   void toNoticeViewTest() {
+
     //        given
-    Notice givenNotice =
+    final var givenNoticeId = 1L;
+    final var givenTitle = "TITLE";
+    final var givenContent = "CONTENT";
+    final var givenExpirationDate = LocalDate.now();
+    final var givenPublicationDateTime = LocalDateTime.now();
+    final var givenActive = true;
+    final var givenCategory = CategoryType.FOOD;
+    final var givenUsername = "USERNAME";
+    final var givenAuthor = User.builder().username(givenUsername).build();
+
+    final var givenEntity =
         Notice.builder()
-            .noticeId(1L)
-            .title("TITLE")
-            .content("CONTENT")
-            .expirationDate(LocalDate.of(2020, 10, 10))
-            .publicationDateTime(LocalDateTime.of(2021, 12, 12, 20, 10))
+            .noticeId(givenNoticeId)
+            .title(givenTitle)
+            .content(givenContent)
+            .expirationDate(givenExpirationDate)
+            .publicationDateTime(givenPublicationDateTime)
+            .active(givenActive)
+            .category(givenCategory)
+            .author(givenAuthor)
             .build();
+    final var expectedResult =
+        NoticeView.builder()
+            .noticeId(givenNoticeId)
+            .title(givenTitle)
+            .content(givenContent)
+            .expirationDate(givenExpirationDate)
+            .publicationDateTime(givenPublicationDateTime)
+            .active(givenActive)
+            .category(givenCategory)
+            .username(givenUsername)
+            .build();
+
     //    when
-    NoticeView noticeView = mapper.toNoticeView(givenNotice);
+    final var result = mapper.toNoticeView(givenEntity);
+
     //    then
-    assertAll(
-        "Should map Notice to NoticeView",
-        () -> assertEquals(givenNotice.getNoticeId(), noticeView.getNoticeId()),
-        () -> assertEquals(givenNotice.getTitle(), noticeView.getTitle()),
-        () -> assertEquals(givenNotice.getContent(), noticeView.getContent()),
-        () -> assertEquals(givenNotice.getExpirationDate(), noticeView.getExpirationDate()),
-        () ->
-            assertEquals(
-                givenNotice.getPublicationDateTime(), noticeView.getPublicationDateTime()));
+      assertThat(result).usingRecursiveComparison().isEqualTo(expectedResult);
   }
 }

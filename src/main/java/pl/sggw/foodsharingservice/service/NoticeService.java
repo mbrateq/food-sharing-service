@@ -1,18 +1,24 @@
 package pl.sggw.foodsharingservice.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import pl.sggw.foodsharingservice.model.dto.CreateNoticeDto;
-import pl.sggw.foodsharingservice.model.entity.Notice;
+import pl.sggw.foodsharingservice.model.dto.UpdateNoticeDto;
+import pl.sggw.foodsharingservice.model.view.NoticeView;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface NoticeService {
 
-  //    convert to dtos and paging
-  List<Notice> listAllNotices();
+  Page<NoticeView> searchNoticesByQuery(Optional<String> query, Pageable pageable);
 
-  Notice createNotice(CreateNoticeDto createNoticeDto);
+  Page<NoticeView> searchInactiveNoticesByQuery(Optional<String> query, Pageable pageable);
 
-  Notice updateNotice(long id, CreateNoticeDto createNoticeDto);
+  NoticeView createNotice(CreateNoticeDto createNoticeDto, String username);
+
+  NoticeView updateNotice(long id, UpdateNoticeDto updateNoticeDto , String username);
+
+  boolean deactivateNotice(long id, String username);
 
   boolean deleteNotice(long id);
 }
