@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/users")
 @PreAuthorize("hasRole('ROLE_USER')")
 @RequiredArgsConstructor
 public class UserController extends ControllerAbstract implements UserOperations {
@@ -45,7 +45,7 @@ public class UserController extends ControllerAbstract implements UserOperations
   }
 
   @Override
-  @GetMapping(value = "/users", produces = "application/json")
+  @GetMapping(value = "/", produces = "application/json")
   public ResponseEntity<Page<UserView>> searchUsersByUsername(
       @RequestParam(required = false, name = "query") Optional<String> query,
       @RequestParam(name = "per-page", defaultValue = "20", required = false) int pageSize,

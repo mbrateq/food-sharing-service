@@ -2,8 +2,7 @@ package pl.sggw.foodsharingservice.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import pl.sggw.foodsharingservice.ErrorMessages;
+import pl.sggw.foodsharingservice.message.ErrorMessages;
 import pl.sggw.foodsharingservice.base.IntegrationTestBase;
 import pl.sggw.foodsharingservice.model.dto.CreateUserDto;
 import pl.sggw.foodsharingservice.security.PasswordEncoderService;
@@ -17,7 +16,6 @@ import java.util.stream.StreamSupport;
 import static java.lang.String.format;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
 
 class PublicServiceImplTest extends IntegrationTestBase {
 

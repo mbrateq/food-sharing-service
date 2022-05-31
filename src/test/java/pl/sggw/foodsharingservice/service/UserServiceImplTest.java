@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import pl.sggw.foodsharingservice.ErrorMessages;
+import pl.sggw.foodsharingservice.message.ErrorMessages;
 import pl.sggw.foodsharingservice.base.IntegrationTestBase;
 import pl.sggw.foodsharingservice.model.dto.UpdatePasswordDto;
 import pl.sggw.foodsharingservice.model.entity.User;

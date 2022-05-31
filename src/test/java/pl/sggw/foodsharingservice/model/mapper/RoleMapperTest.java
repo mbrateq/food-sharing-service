@@ -1,4 +1,4 @@
-package pl.sggw.foodsharingservice.mappper;
+package pl.sggw.foodsharingservice.model.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

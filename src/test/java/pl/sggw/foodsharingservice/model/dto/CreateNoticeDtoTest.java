@@ -40,21 +40,21 @@ class CreateNoticeDtoTest {
 
   static Stream<Arguments> shouldValidateTheObjectData() {
     return Stream.of(
-        Arguments.of("TITLE", "TEST_CONTENT", LocalDate.now().plusDays(1), CategoryType.FOOD, 0),
-        Arguments.of(null, "TEST_CONTENT", LocalDate.now().plusDays(1), CategoryType.FOOD, 1),
-        Arguments.of("", "TEST_CONTENT", LocalDate.now().plusDays(1), CategoryType.FOOD, 1),
+        Arguments.of("TITLE", "TEST_CONTENT", LocalDate.now().plusDays(1), CategoryType.DRY_FOOD, 0),
+        Arguments.of(null, "TEST_CONTENT", LocalDate.now().plusDays(1), CategoryType.DRY_FOOD, 1),
+        Arguments.of("", "TEST_CONTENT", LocalDate.now().plusDays(1), CategoryType.DRY_FOOD, 1),
         Arguments.of(
             "AAAAAAAAAA_AAAAAAAAAA_AAAAAAAA_",
             "TEST_CONTENT",
             LocalDate.now().plusDays(1),
-            CategoryType.FOOD,
+            CategoryType.DRY_FOOD,
             1),
-        Arguments.of("AAAA", "TEST_CONTENT", LocalDate.now().plusDays(1), CategoryType.FOOD, 1),
-        Arguments.of("TITLE", null, LocalDate.now().plusDays(1), CategoryType.FOOD, 1),
-        Arguments.of("TITLE", "", LocalDate.now().plusDays(1), CategoryType.FOOD, 1),
-        Arguments.of("TITLE", "AAAAAAAAA", LocalDate.now().plusDays(1), CategoryType.FOOD, 1),
-        Arguments.of("TITLE", "TEST_CONTENT", LocalDate.now().minusDays(1), CategoryType.FOOD, 1),
-        Arguments.of("TITLE", "TEST_CONTENT", LocalDate.now(), CategoryType.FOOD, 1),
+        Arguments.of("AAAA", "TEST_CONTENT", LocalDate.now().plusDays(1), CategoryType.DRY_FOOD, 1),
+        Arguments.of("TITLE", null, LocalDate.now().plusDays(1), CategoryType.DRY_FOOD, 1),
+        Arguments.of("TITLE", "", LocalDate.now().plusDays(1), CategoryType.DRY_FOOD, 1),
+        Arguments.of("TITLE", "AAAAAAAAA", LocalDate.now().plusDays(1), CategoryType.DRY_FOOD, 1),
+        Arguments.of("TITLE", "TEST_CONTENT", LocalDate.now().minusDays(1), CategoryType.DRY_FOOD, 1),
+        Arguments.of("TITLE", "TEST_CONTENT", LocalDate.now(), CategoryType.DRY_FOOD, 1),
         Arguments.of("TITLE", "TEST_CONTENT", LocalDate.now().plusDays(1), null, 1));
   }
 }

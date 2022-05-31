@@ -36,7 +36,7 @@ class CreateUserDtoTest {
         Arguments.of(null, "password", "111111111", 1),
         Arguments.of("username", null, "111111111", 1),
         Arguments.of("username", "password", "111111111", 0),
-        Arguments.of("", "password", "111111111", 2),
+        Arguments.of("", "password", "111111111", 1),
         Arguments.of("username", "", "111111111", 1),
         Arguments.of("username", "passwor", "111111111", 1),
         Arguments.of("usernam", "passwor", "111111111", 2),

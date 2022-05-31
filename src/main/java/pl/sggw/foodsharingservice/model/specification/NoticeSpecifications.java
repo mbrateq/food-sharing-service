@@ -1,4 +1,4 @@
-package pl.sggw.foodsharingservice.specification;
+package pl.sggw.foodsharingservice.model.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 import pl.sggw.foodsharingservice.model.entity.Notice;

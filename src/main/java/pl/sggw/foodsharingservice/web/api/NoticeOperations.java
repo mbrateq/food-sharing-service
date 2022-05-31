@@ -28,6 +28,7 @@ public interface NoticeOperations {
   @Operation(summary = "Usunięcie ogłoszenia - deaktywacja przez autora")
   ResponseEntity<Boolean> deactivateNotice(long id, String username);
 
+//  Move to admin
   @Operation(summary = "Usunięcie ogłoszenia - admin")
   ResponseEntity<Boolean> deleteNotice(long id);
 }

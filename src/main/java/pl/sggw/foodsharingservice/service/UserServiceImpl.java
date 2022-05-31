@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import pl.sggw.foodsharingservice.ErrorMessages;
+import pl.sggw.foodsharingservice.message.ErrorMessages;
 import pl.sggw.foodsharingservice.model.dto.UpdatePasswordDto;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.model.mapper.UserMapper;
@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
                           .getPasswordEncoder()
                           .encode(CharBuffer.wrap(updatePasswordDto.getNewPassword())))
                   .build()));
+//      ADD password reseting Arrays.fill(myArray, null);
     } else {
       throw new ValidationException(ErrorMessages.INVALID_PASSWORD_MESSAGE);
     }

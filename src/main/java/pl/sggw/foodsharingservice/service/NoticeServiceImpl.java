@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import pl.sggw.foodsharingservice.ErrorMessages;
+import pl.sggw.foodsharingservice.message.ErrorMessages;
 import pl.sggw.foodsharingservice.model.dto.CreateNoticeDto;
 import pl.sggw.foodsharingservice.model.dto.UpdateNoticeDto;
 import pl.sggw.foodsharingservice.model.entity.Notice;
@@ -23,8 +23,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static pl.sggw.foodsharingservice.specification.NoticeSpecificationProvider.prepareDateSpecification;
-import static pl.sggw.foodsharingservice.specification.NoticeSpecificationProvider.prepareQuerySpecification;
+import static pl.sggw.foodsharingservice.model.specification.NoticeSpecificationProvider.prepareDateSpecification;
+import static pl.sggw.foodsharingservice.model.specification.NoticeSpecificationProvider.prepareQuerySpecification;
 
 @Service
 @RequiredArgsConstructor

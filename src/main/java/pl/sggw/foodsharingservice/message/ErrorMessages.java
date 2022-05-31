@@ -1,4 +1,4 @@
-package pl.sggw.foodsharingservice;
+package pl.sggw.foodsharingservice.message;
 
 public class ErrorMessages {
   public static final String USER_NOT_EXISTS_WITH_ID_MESSAGE = "User with id: %s does not exist!";

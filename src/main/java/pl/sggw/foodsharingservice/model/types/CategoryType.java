@@ -1,7 +1,8 @@
 package pl.sggw.foodsharingservice.model.types;
 
 public enum CategoryType {
-    FOOD,
+    DRY_FOOD,
+    FRESH_FOOD,
     DRINK,
-    PRODUCT
+    LONG_SHELF_LIFE
 }

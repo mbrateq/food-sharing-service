@@ -1,4 +1,4 @@
-package pl.sggw.foodsharingservice.mappper;
+package pl.sggw.foodsharingservice.model.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -27,7 +27,7 @@ public class NoticeMapperTest {
     final var givenExpirationDate = LocalDate.now();
     final var givenPublicationDateTime = LocalDateTime.now();
     final var givenActive = true;
-    final var givenCategory = CategoryType.FOOD;
+    final var givenCategory = CategoryType.DRY_FOOD;
     final var givenUsername = "USERNAME";
     final var givenAuthor = User.builder().username(givenUsername).build();
 

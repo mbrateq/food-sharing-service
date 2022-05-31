@@ -17,7 +17,7 @@ import pl.sggw.foodsharingservice.web.api.AdminOperations;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/admin")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequiredArgsConstructor
 public class AdminController implements AdminOperations {

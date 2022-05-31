@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import pl.sggw.foodsharingservice.ErrorMessages;
+import pl.sggw.foodsharingservice.message.ErrorMessages;
 import pl.sggw.foodsharingservice.base.IntegrationTestBase;
 import pl.sggw.foodsharingservice.model.dto.CreateNoticeDto;
 import pl.sggw.foodsharingservice.model.dto.UpdateNoticeDto;
@@ -40,7 +40,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
           Notice.builder()
               .title(title)
               .content("content")
-              .category(CategoryType.FOOD)
+              .category(CategoryType.DRY_FOOD)
               .expirationDate(LocalDate.now().plusDays(2))
               .publicationDateTime(LocalDateTime.now())
               .author(user)
@@ -53,7 +53,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
           Notice.builder()
               .title(title)
               .content("content")
-              .category(CategoryType.FOOD)
+              .category(CategoryType.DRY_FOOD)
               .expirationDate(LocalDate.now().plusDays(2))
               .publicationDateTime(LocalDateTime.now())
               .author(user)
@@ -78,7 +78,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
               Notice.builder()
                       .title(title)
                       .content("content")
-                      .category(CategoryType.FOOD)
+                      .category(CategoryType.DRY_FOOD)
                       .expirationDate(LocalDate.now().plusDays(2))
                       .publicationDateTime(LocalDateTime.now())
                       .author(user)
@@ -92,7 +92,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
               Notice.builder()
                       .title(title)
                       .content("content")
-                      .category(CategoryType.FOOD)
+                      .category(CategoryType.DRY_FOOD)
                       .expirationDate(LocalDate.now().plusDays(2))
                       .publicationDateTime(LocalDateTime.now())
                       .author(user)
@@ -151,7 +151,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
         Notice.builder()
             .title(title)
             .content(content)
-            .category(CategoryType.FOOD)
+            .category(CategoryType.DRY_FOOD)
             .expirationDate(LocalDate.now().plusDays(2))
             .publicationDateTime(LocalDateTime.now())
             .author(user)
@@ -161,7 +161,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
         Notice.builder()
             .title(title)
             .content(content)
-            .category(CategoryType.FOOD)
+            .category(CategoryType.DRY_FOOD)
             .expirationDate(LocalDate.now().plusDays(2))
             .publicationDateTime(LocalDateTime.now())
             .author(user)
@@ -184,7 +184,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
             Notice.builder()
                     .title(title)
                     .content(content)
-                    .category(CategoryType.FOOD)
+                    .category(CategoryType.DRY_FOOD)
                     .expirationDate(LocalDate.now().plusDays(2))
                     .publicationDateTime(LocalDateTime.now())
                     .author(user)
@@ -195,7 +195,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
             Notice.builder()
                     .title(title)
                     .content(content)
-                    .category(CategoryType.FOOD)
+                    .category(CategoryType.DRY_FOOD)
                     .expirationDate(LocalDate.now().plusDays(2))
                     .publicationDateTime(LocalDateTime.now())
                     .author(user)
@@ -226,7 +226,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
         Notice.builder()
             .title("title")
             .content("content")
-            .category(CategoryType.FOOD)
+            .category(CategoryType.DRY_FOOD)
             .expirationDate(expirationDate)
             .publicationDateTime(LocalDateTime.now())
             .author(user)
@@ -251,7 +251,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
         userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     final var givenTitle = "TITLE";
     final var givenContent = "CONTENT";
-    final var givenCategoryType = CategoryType.FOOD;
+    final var givenCategoryType = CategoryType.DRY_FOOD;
     final var givenExpirationDate = LocalDate.now();
     final var createNoticeDto =
         CreateNoticeDto.builder()
@@ -279,7 +279,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
     // given
     final var givenTitle = "TITLE";
     final var givenContent = "CONTENT";
-    final var givenCategoryType = CategoryType.FOOD;
+    final var givenCategoryType = CategoryType.DRY_FOOD;
     final var givenExpirationDate = LocalDate.now();
     final var createNoticeDto =
         CreateNoticeDto.builder()
@@ -306,7 +306,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
     final var givenNewTitle = "NEW_TITLE";
     final var givenContent = "CONTENT";
     final var givenNewContent = "NEW_CONTENT";
-    final var givenCategoryType = CategoryType.FOOD;
+    final var givenCategoryType = CategoryType.DRY_FOOD;
     final var givenExpirationDate = LocalDate.now();
     final var givenNewExpirationDate = LocalDate.now().plusDays(1);
     final var createNoticeDto =
@@ -371,7 +371,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
         userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     final var givenTitle = "TITLE";
     final var givenContent = "CONTENT";
-    final var givenCategoryType = CategoryType.FOOD;
+    final var givenCategoryType = CategoryType.DRY_FOOD;
     final var givenExpirationDate = LocalDate.now();
     final var notice =
         noticeRepository.save(
@@ -409,7 +409,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
         userRepository.save(User.builder().username("username").password("pass").phone("555555555").build());
     final var givenTitle = "TITLE";
     final var givenContent = "CONTENT";
-    final var givenCategoryType = CategoryType.FOOD;
+    final var givenCategoryType = CategoryType.DRY_FOOD;
     final var givenExpirationDate = LocalDate.now();
     final var givenNotice =
         noticeRepository.save(

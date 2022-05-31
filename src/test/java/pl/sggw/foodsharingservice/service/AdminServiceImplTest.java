@@ -5,19 +5,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import pl.sggw.foodsharingservice.ErrorMessages;
+import pl.sggw.foodsharingservice.message.ErrorMessages;
 import pl.sggw.foodsharingservice.base.IntegrationTestBase;
-import pl.sggw.foodsharingservice.model.dto.UpdatePasswordDto;
 import pl.sggw.foodsharingservice.model.entity.Role;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.model.types.RoleType;
 
 import javax.validation.ValidationException;
-import java.nio.CharBuffer;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static java.lang.String.format;

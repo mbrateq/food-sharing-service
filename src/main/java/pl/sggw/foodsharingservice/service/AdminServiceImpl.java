@@ -3,7 +3,7 @@ package pl.sggw.foodsharingservice.service;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
-import pl.sggw.foodsharingservice.ErrorMessages;
+import pl.sggw.foodsharingservice.message.ErrorMessages;
 import pl.sggw.foodsharingservice.model.entity.Role;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.model.entity.UserRole;
@@ -54,7 +54,6 @@ public class AdminServiceImpl implements AdminService {
                 () ->
                     new ValidationException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, userId)));
-//   remove roles (move to another place)
     userRolesRepository.deleteAll(userRolesRepository.findByUserId(userId));
     if (!user.isToDelete()) {
       return userMapper.toUserView(userRepository.save(user.toBuilder().toDelete(true).enabled(false).build()));

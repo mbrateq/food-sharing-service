@@ -1,14 +1,14 @@
-package pl.sggw.foodsharingservice.specification;
+package pl.sggw.foodsharingservice.model.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 import pl.sggw.foodsharingservice.model.entity.Notice;
 
 import java.time.LocalDate;
 
-import static pl.sggw.foodsharingservice.specification.NoticeSpecifications.withActive;
-import static pl.sggw.foodsharingservice.specification.NoticeSpecifications.withContentContains;
-import static pl.sggw.foodsharingservice.specification.NoticeSpecifications.withExpirationDateBefore;
-import static pl.sggw.foodsharingservice.specification.NoticeSpecifications.withTitleContains;
+import static pl.sggw.foodsharingservice.model.specification.NoticeSpecifications.withActive;
+import static pl.sggw.foodsharingservice.model.specification.NoticeSpecifications.withContentContains;
+import static pl.sggw.foodsharingservice.model.specification.NoticeSpecifications.withExpirationDateBefore;
+import static pl.sggw.foodsharingservice.model.specification.NoticeSpecifications.withTitleContains;
 
 public class NoticeSpecificationProvider {
 

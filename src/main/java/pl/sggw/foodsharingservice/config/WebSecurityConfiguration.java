@@ -1,4 +1,4 @@
-package pl.sggw.foodsharingservice.security;
+package pl.sggw.foodsharingservice.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -42,6 +42,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/fss").permitAll()
-                .antMatchers("fss/api/**").authenticated().and().formLogin().defaultSuccessUrl("/swagger-ui/index.html?configUrl=/fss/v3/api-docs/swagger-config");
+                .antMatchers("/fss/api/**").authenticated().and().formLogin().defaultSuccessUrl("/swagger-ui/index.html?configUrl=/fss/v3/api-docs/swagger-config");
     }
 }

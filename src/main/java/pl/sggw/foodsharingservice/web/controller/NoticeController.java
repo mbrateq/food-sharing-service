@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,14 +25,15 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/notices")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ROLE_USER')")
 public class NoticeController extends ControllerAbstract implements NoticeOperations {
 
   private final NoticeService noticeService;
 
   @Override
-  @GetMapping(value = "/notices", produces = "application/json")
+  @GetMapping(value = "/", produces = "application/json")
   public ResponseEntity<Page<NoticeView>> listAllNotices(
       @RequestParam(required = false, name = "query") Optional<String> query,
       @RequestParam(name = "per-page", defaultValue = "20", required = false) int pageSize,
@@ -41,7 +43,7 @@ public class NoticeController extends ControllerAbstract implements NoticeOperat
   }
 
   @Override
-  @GetMapping(value = "/notices/inactive", produces = "application/json")
+  @GetMapping(value = "/inactive", produces = "application/json")
   public ResponseEntity<Page<NoticeView>> listAllInactiveNotices(
       @RequestParam(required = false, name = "query") Optional<String> query,
       @RequestParam(name = "per-page", defaultValue = "20", required = false) int pageSize,
@@ -59,7 +61,7 @@ public class NoticeController extends ControllerAbstract implements NoticeOperat
   }
 
   @Override
-  @PutMapping(value = "/notice/{noticeId}", produces = "application/json")
+  @PutMapping(value = "/{noticeId}", produces = "application/json")
   public ResponseEntity<NoticeView> updateNotice(
       @PathVariable long noticeId,
       @RequestBody UpdateNoticeDto updateNoticeDto,
@@ -68,7 +70,7 @@ public class NoticeController extends ControllerAbstract implements NoticeOperat
   }
 
   @Override
-  @DeleteMapping(value = "/notice/{noticeId}/deactivation", produces = "application/json")
+  @DeleteMapping(value = "/{noticeId}/deactivation", produces = "application/json")
   public ResponseEntity<Boolean> deactivateNotice(
       @PathVariable long noticeId,
       @CurrentSecurityContext(expression = "authentication?.name") String username) {
@@ -76,7 +78,7 @@ public class NoticeController extends ControllerAbstract implements NoticeOperat
   }
 
   @Override
-  @DeleteMapping(value = "/notice/{noticeId}", produces = "application/json")
+  @DeleteMapping(value = "/{noticeId}", produces = "application/json")
   public ResponseEntity<Boolean> deleteNotice(@PathVariable long noticeId) {
     return ResponseEntity.ok(noticeService.deleteNotice(noticeId));
   }

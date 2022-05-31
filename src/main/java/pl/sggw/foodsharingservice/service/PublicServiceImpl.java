@@ -3,7 +3,7 @@ package pl.sggw.foodsharingservice.service;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
-import pl.sggw.foodsharingservice.ErrorMessages;
+import pl.sggw.foodsharingservice.message.ErrorMessages;
 import pl.sggw.foodsharingservice.model.dto.CreateUserDto;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.model.mapper.UserMapper;
@@ -11,11 +11,8 @@ import pl.sggw.foodsharingservice.model.repository.UserRepository;
 import pl.sggw.foodsharingservice.model.view.UserView;
 import pl.sggw.foodsharingservice.security.PasswordEncoderService;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 import java.nio.CharBuffer;
-import java.util.List;
-import java.util.Optional;
 
 import static java.lang.String.format;
 
@@ -48,5 +45,6 @@ public class PublicServiceImpl implements PublicService {
                         .encode(CharBuffer.wrap(createUserDto.getPassword())))
                 .phone(createUserDto.getPhoneNumber())
                 .build()));
+//    Add password Reseting Arrays.fill(myArray, null);
   }
 }
