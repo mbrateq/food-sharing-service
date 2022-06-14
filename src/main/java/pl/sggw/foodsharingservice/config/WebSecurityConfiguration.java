@@ -15,33 +15,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+  private final UserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userDetailsService);
+  }
+  // ALL REQUESTS
+  //        httpSecurity
+  //        .authorizeRequests()
+  //        .anyRequest()
+  //        .authenticated()
+  //        .and()
+  //        .formLogin()
+  //        .and()
+  //        .cors()
+  //        .and()
+  //        .csrf()
+  //        .disable();
 
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-// ALL REQUESTS
-//        httpSecurity
-//        .authorizeRequests()
-//        .anyRequest()
-//        .authenticated()
-//        .and()
-//        .formLogin()
-//        .and()
-//        .cors()
-//        .and()
-//        .csrf()
-//        .disable();
-
-//                         API REQUESTS
-        httpSecurity
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/fss").permitAll()
-                .antMatchers("/fss/api/**").authenticated().and().formLogin().defaultSuccessUrl("/swagger-ui/index.html?configUrl=/fss/v3/api-docs/swagger-config");
-    }
+  @Override
+  protected void configure(HttpSecurity httpSecurity) throws Exception {
+    //                         API REQUESTS
+    httpSecurity
+        .csrf()
+        .disable()
+        .authorizeRequests()
+        .antMatchers("/fss")
+        .permitAll()
+        .antMatchers("/fss/api/**")
+        .authenticated()
+        .and()
+        .formLogin()
+        .defaultSuccessUrl("/swagger-ui/index.html?configUrl=/fss/v3/api-docs/swagger-config");
+  }
 }

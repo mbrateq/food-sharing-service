@@ -15,6 +15,7 @@ import pl.sggw.foodsharingservice.model.repository.UserRolesRepository;
 import pl.sggw.foodsharingservice.model.view.UserView;
 import pl.sggw.foodsharingservice.security.PasswordEncoderService;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 import java.nio.CharBuffer;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
             .findByUsernameAndToDeleteFalse(username)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, username)));
     if (passwordEncoderService
         .getPasswordEncoder()
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
                           .getPasswordEncoder()
                           .encode(CharBuffer.wrap(updatePasswordDto.getNewPassword())))
                   .build()));
-//      ADD password reseting Arrays.fill(myArray, null);
+      //      ADD password reseting Arrays.fill(myArray, null);
     } else {
       throw new ValidationException(ErrorMessages.INVALID_PASSWORD_MESSAGE);
     }
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
             .findByUsernameAndToDeleteFalse(username)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, username)));
     userRolesRepository.deleteAll(userRolesRepository.findByUserId(user.getUserId()));
     return userMapper.toUserView(
@@ -76,10 +77,14 @@ public class UserServiceImpl implements UserService {
     if (query.isPresent()) {
       final Page<User> page =
           userRepository.findByUsernameContainingAndToDeleteFalse(query.get(), pageable);
-      return new PageImpl<>(
-          page.stream().map(user -> userMapper.toUserView(user)).collect(Collectors.toList()),
-          pageable,
-          page.getTotalElements());
+      if (0 == page.stream().count()) {
+        throw new EntityNotFoundException(format("Cannot find user with username: %s.", query.get()));
+      } else {
+        return new PageImpl<>(
+            page.stream().map(user -> userMapper.toUserView(user)).collect(Collectors.toList()),
+            pageable,
+            page.getTotalElements());
+      }
     } else {
       final Page<User> page = userRepository.findAll(pageable);
       return new PageImpl<>(

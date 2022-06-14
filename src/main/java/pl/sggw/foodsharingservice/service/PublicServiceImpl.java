@@ -11,8 +11,10 @@ import pl.sggw.foodsharingservice.model.repository.UserRepository;
 import pl.sggw.foodsharingservice.model.view.UserView;
 import pl.sggw.foodsharingservice.security.PasswordEncoderService;
 
+import javax.persistence.EntityExistsException;
 import javax.validation.ValidationException;
 import java.nio.CharBuffer;
+import java.util.Arrays;
 
 import static java.lang.String.format;
 
@@ -30,21 +32,24 @@ public class PublicServiceImpl implements PublicService {
         .findByUsernameAndToDeleteFalse(createUserDto.getUsername())
         .ifPresent(
             user -> {
-              throw new ValidationException(
+              throw new EntityExistsException(
                   format(
                       ErrorMessages.USER_ALREADY_EXISTS_WITH_USERNAME_MESSAGE,
                       createUserDto.getUsername()));
             });
-    return userMapper.toUserView(
-        userRepository.save(
-            User.builder()
-                .username(createUserDto.getUsername())
-                .password(
-                    passwordEncoderService
-                        .getPasswordEncoder()
-                        .encode(CharBuffer.wrap(createUserDto.getPassword())))
-                .phone(createUserDto.getPhoneNumber())
-                .build()));
-//    Add password Reseting Arrays.fill(myArray, null);
+    try {
+      return userMapper.toUserView(
+          userRepository.save(
+              User.builder()
+                  .username(createUserDto.getUsername())
+                  .password(
+                      passwordEncoderService
+                          .getPasswordEncoder()
+                          .encode(CharBuffer.wrap(createUserDto.getPassword())))
+                  .phone(createUserDto.getPhoneNumber())
+                  .build()));
+    } finally {
+      Arrays.fill(createUserDto.getPassword(), '0');
+    }
   }
 }

@@ -7,6 +7,8 @@ import pl.sggw.foodsharingservice.base.IntegrationTestBase;
 import pl.sggw.foodsharingservice.model.dto.CreateUserDto;
 import pl.sggw.foodsharingservice.security.PasswordEncoderService;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 
 import java.nio.CharBuffer;
@@ -72,7 +74,7 @@ class PublicServiceImplTest extends IntegrationTestBase {
 
     //        then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityExistsException.class)
         .hasMessage(format(ErrorMessages.USER_ALREADY_EXISTS_WITH_USERNAME_MESSAGE, givenUsername));
   }
 }

@@ -17,6 +17,7 @@ import pl.sggw.foodsharingservice.model.repository.NoticeRepository;
 import pl.sggw.foodsharingservice.model.repository.UserRepository;
 import pl.sggw.foodsharingservice.model.view.NoticeView;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -45,12 +46,17 @@ public class NoticeServiceImpl implements NoticeService {
       final Page<Notice> resultPage =
           noticeRepository.findAll(
               Specification.where(prepareQuerySpecification(queryStr, true)), pageable);
-      return new PageImpl<>(
-          resultPage.stream()
-              .map(notice -> noticeMapper.toNoticeView(notice))
-              .collect(Collectors.toList()),
-          pageable,
-          resultPage.getTotalElements());
+      if (0 == resultPage.stream().count()) {
+        throw new EntityNotFoundException(
+            format("cannot find notice with pattern: %s.", query.get()));
+      } else {
+        return new PageImpl<>(
+            resultPage.stream()
+                .map(notice -> noticeMapper.toNoticeView(notice))
+                .collect(Collectors.toList()),
+            pageable,
+            resultPage.getTotalElements());
+      }
     } else {
       final Page<Notice> resultPage =
           noticeRepository.findAll(Specification.where(prepareDateSpecification(true)), pageable);
@@ -98,7 +104,7 @@ public class NoticeServiceImpl implements NoticeService {
             .findByUsernameAndToDeleteFalse(username)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, username)));
     return noticeMapper.toNoticeView(
         noticeRepository.save(
@@ -119,14 +125,14 @@ public class NoticeServiceImpl implements NoticeService {
             .findByUsernameAndToDeleteFalse(username)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, username)));
     final Notice notice =
         noticeRepository
             .findByAuthorAndAndNoticeId(user, id)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(
                             ErrorMessages.NOTICE_NOT_EXISTS_WITH_AUTHOR_ID_MESSAGE, username, id)));
     return noticeMapper.toNoticeView(
@@ -146,14 +152,14 @@ public class NoticeServiceImpl implements NoticeService {
             .findByUsernameAndToDeleteFalse(username)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, username)));
     final Notice notice =
         noticeRepository
             .findByAuthorAndAndNoticeId(user, id)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(
                             ErrorMessages.NOTICE_NOT_EXISTS_WITH_AUTHOR_ID_MESSAGE, username, id)));
     noticeRepository.save(notice.toBuilder().active(false).build());

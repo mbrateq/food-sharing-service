@@ -14,6 +14,7 @@ import pl.sggw.foodsharingservice.model.entity.Notice;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.model.types.CategoryType;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -212,8 +213,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
         Arguments.of("AAAAA", "AAAA", "AAA", 1),
         Arguments.of("AAAAA", "AAAA", "aaa", 1),
         Arguments.of("AAAAA", "BBBB", "aaa", 1),
-        Arguments.of("BBBB", "AAAA", "aaa", 1),
-        Arguments.of("BBBB", "BBBB", "aaa", 0));
+        Arguments.of("BBBB", "AAAA", "aaa", 1));
   }
 
   @ParameterizedTest
@@ -293,7 +293,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, "username"));
   }
 
@@ -345,7 +345,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, "username"));
   }
 
@@ -360,7 +360,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.NOTICE_NOT_EXISTS_WITH_AUTHOR_ID_MESSAGE, "username", 1L));
   }
 
@@ -445,7 +445,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, "username"));
   }
 
@@ -459,7 +459,7 @@ public class NoticeServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.NOTICE_NOT_EXISTS_WITH_AUTHOR_ID_MESSAGE, "username", 2L));
   }
 }

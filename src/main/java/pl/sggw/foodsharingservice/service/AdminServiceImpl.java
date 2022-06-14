@@ -14,6 +14,7 @@ import pl.sggw.foodsharingservice.model.repository.UserRolesRepository;
 import pl.sggw.foodsharingservice.model.types.RoleType;
 import pl.sggw.foodsharingservice.model.view.UserView;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class AdminServiceImpl implements AdminService {
             .findById(userId)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, userId)));
     if (toUpdate.isEnabled() != status) {
       return userMapper.toUserView(userRepository.save(toUpdate.toBuilder().enabled(status).build()));
@@ -52,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
             .findById(userId)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, userId)));
     userRolesRepository.deleteAll(userRolesRepository.findByUserId(userId));
     if (!user.isToDelete()) {
@@ -69,14 +70,14 @@ public class AdminServiceImpl implements AdminService {
             .findById(userId)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, userId)));
     final Role role =
         roleRepository
             .findByRoleName(roleType.name())
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.ROLE_NOT_EXISTS_WITH_NAME_MESSAGE, roleType.name())));
 
     final Optional<UserRole> userRoleOptional = userRolesRepository.findByRoleIdAndUserId(userId, role.getRoleId());
@@ -94,14 +95,14 @@ public class AdminServiceImpl implements AdminService {
             .findById(userId)
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, userId)));
     final Role role =
         roleRepository
             .findByRoleName(roleType.name())
             .orElseThrow(
                 () ->
-                    new ValidationException(
+                    new EntityNotFoundException(
                         format(ErrorMessages.ROLE_NOT_EXISTS_WITH_NAME_MESSAGE, roleType.name())));
     final Optional<UserRole> userRoleOptional = userRolesRepository.findByRoleIdAndUserId(userId, role.getRoleId());
     if (userRoleOptional.isPresent()){

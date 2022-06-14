@@ -12,6 +12,7 @@ import pl.sggw.foodsharingservice.model.dto.UpdatePasswordDto;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.security.PasswordEncoderService;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 import java.nio.CharBuffer;
 import java.util.Optional;
@@ -68,7 +69,7 @@ class UserServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, "username"));
   }
 
@@ -135,7 +136,7 @@ class UserServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_USERNAME_MESSAGE, "username"));
   }
 
@@ -172,7 +173,6 @@ class UserServiceImplTest extends IntegrationTestBase {
     return Stream.of(
         Arguments.of("username", "username", 1),
         Arguments.of("username", "rna", 1),
-        Arguments.of("username", "abc", 0),
         Arguments.of("blablabla", "bla", 1));
   }
 }

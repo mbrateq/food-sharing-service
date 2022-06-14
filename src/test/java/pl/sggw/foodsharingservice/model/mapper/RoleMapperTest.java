@@ -3,7 +3,6 @@ package pl.sggw.foodsharingservice.model.mapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import pl.sggw.foodsharingservice.model.entity.Role;
-import pl.sggw.foodsharingservice.model.mapper.RoleMapper;
 import pl.sggw.foodsharingservice.model.types.RoleType;
 import pl.sggw.foodsharingservice.model.view.RoleView;
 

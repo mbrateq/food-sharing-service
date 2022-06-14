@@ -11,6 +11,8 @@ import pl.sggw.foodsharingservice.model.entity.Role;
 import pl.sggw.foodsharingservice.model.entity.User;
 import pl.sggw.foodsharingservice.model.types.RoleType;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 import java.util.stream.Stream;
 
@@ -55,7 +57,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, 1));
   }
 
@@ -83,7 +85,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-        .isInstanceOf(ValidationException.class)
+        .isInstanceOf(EntityNotFoundException.class)
         .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, 1));
   }
 
@@ -112,7 +114,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-            .isInstanceOf(ValidationException.class)
+            .isInstanceOf(EntityNotFoundException.class)
             .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, 1));
   }
 
@@ -127,7 +129,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-            .isInstanceOf(ValidationException.class)
+            .isInstanceOf(EntityNotFoundException.class)
             .hasMessage(format(ErrorMessages.ROLE_NOT_EXISTS_WITH_NAME_MESSAGE, RoleType.ROLE_ADMIN.name()));
   }
 
@@ -156,7 +158,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-            .isInstanceOf(ValidationException.class)
+            .isInstanceOf(EntityNotFoundException.class)
             .hasMessage(format(ErrorMessages.USER_NOT_EXISTS_WITH_ID_MESSAGE, 1));
   }
 
@@ -171,7 +173,7 @@ class AdminServiceImplTest extends IntegrationTestBase {
 
     //    then
     assertThat(t)
-            .isInstanceOf(ValidationException.class)
+            .isInstanceOf(EntityNotFoundException.class)
             .hasMessage(format(ErrorMessages.ROLE_NOT_EXISTS_WITH_NAME_MESSAGE, RoleType.ROLE_ADMIN.name()));
   }
 
